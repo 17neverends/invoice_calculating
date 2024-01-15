@@ -72,3 +72,16 @@ const cities = [
     });
   }
   
+  var cityInputs = document.querySelectorAll('.city-input');
+
+    cityInputs.forEach(function (input) {
+        input.addEventListener('input', function () {
+            var rect = input.getBoundingClientRect();
+            var dataList = input.list;
+            if (dataList) {
+                dataList.style.position = 'fixed';
+                dataList.style.top = rect.bottom + 'px';
+                dataList.style.left = rect.left + 'px';
+            }
+        });
+    });
