@@ -1,7 +1,7 @@
 let tg = window.Telegram.WebApp;
 
-Telegram.WebApp.MainButton.setParams({
-  text_color: '#fff'
-}).onClick(Cafe.mainBtnClicked);
-Telegram.WebApp.BackButton.onClick(Cafe.backBtnClicked);
-Telegram.WebApp.setHeaderColor('bg_color');
+tg.expand();
+tg.MainButton.setText("Вы выбрали товар 1!");
+tg.MainButton.textColor = '#FFFFFF';
+tg.MainButton.color = '#2cab37';
+tg.MainButton.show();
