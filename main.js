@@ -8,4 +8,4 @@ tg.MainButton.textColor = "#F55353";
 tg.MainButton.color = "#143F6B";
 tg.MainButton.setParams({"color": "#143F6B"});
 tg.MainButton.enable();
-
+tg.MainButton.show();
