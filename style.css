@@ -8,13 +8,18 @@ body {
     justify-content: center;
     min-height: 100vh; 
     min-width: 100%;
-    overflow-y:hidden; 
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-y: scroll; 
 }
 
 h1 {
     font-size: 20px;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+  }
 
 form {
     background-color: #fff;
@@ -23,8 +28,9 @@ form {
     max-width: 400px;
     width: 100%;
     margin: auto;
-    height: 1300px;
+    height: 2000px;
     min-height: 2000px;
+
 }
 
 label {
