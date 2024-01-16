@@ -83,10 +83,14 @@ function openModal(inputId, title) {
   searchInput = searchInput || document.getElementById('searchInput');
   modalTitle = modalTitle || document.getElementById('modal_title');
 
+  filteredCities = [];
+
   if (modal && overlay && inputElement) {
     modal.style.display = 'block';
     overlay.style.display = 'block';
     body.classList.add('modal-open');
+
+    searchInput.value = '';
 
     if (filteredCities.length === 0) {
       filterList();
