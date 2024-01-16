@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Расчет накладной</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/static/invoice_calculation/style.css">
 </head>
 <body> 
     <form>
@@ -21,19 +21,30 @@
         </div>    
 
         <label for="username">Вес посылки</label>
-        <input type="text" id="key" name="key" placeholder="Введите вес посылки (кг)">
+        <input type="text" id="box_weight" name="bow_weight" placeholder="Введите вес посылки (кг)">
 
-        <label for="departure_city">Город отправителя</label>
-        <input type="text" id="departure_city" name="departure_city" placeholder="Введите город отправителя" list="departure_city_list">
-        <datalist id="departure_city_list"></datalist>
-    
-        <label for="destination_city">Город получателя</label>
-        <input type="text" id="destination_city" name="destination_city" placeholder="Введите город получателя" list="destination_city_list">
-        <datalist id="destination_city_list"></datalist>
+        <label>Город отправителя</label>
+        <input type="text" id="departure_city" name="departure_city" placeholder="Введите город отправителя" readonly onclick="openModal('departure_city', 'Город отправителя')">
         
-        <button type="button" id="signin_button" onclick="request()">Принять</button>
+        <label>Город получателя</label>
+        <input type="text" id="destination_city" name="destination_city" placeholder="Введите город получателя" readonly onclick="openModal('destination_city', 'Город получателя')">
+        
+        <div class="overlay" id="overlay" onclick="closeModal()"></div>
+        <div class="modal" id="modal">
+            <div class="modal-content">
+                <h1 id="modal_title">123</h1>
+                <input type="text" id="searchInput" placeholder="Введите текст для поиска" oninput="filterCities()">
+                <div id="citiesListContainer">
+                    <ul id="citiesList"></ul>
+                </div>
+            </div>
+        </div>
+
+        <label class="status" id="status"></label>
+
+        <button type="button" id="signin_button" onclick="check_inputs()">Принять</button>
     </form>
-    <script src="main.js"></script>
+    <script src="/static/invoice_calculation/main.js"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>  
 </body>
 </html>
