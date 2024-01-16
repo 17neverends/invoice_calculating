@@ -65,6 +65,7 @@ const cities = [
       city: 'Ростов-на-Дону'
   }
 ];
+
 let modal = document.getElementById('modal');
 let overlay = document.getElementById('overlay');
 let body = document.body;
@@ -140,6 +141,7 @@ function updateList() {
 }
 
 function selectedCity(city, inputId) {
+  console.log(`${inputId}`)
   const inputElement = document.getElementById(inputId);
   if (inputElement) {
     inputElement.value = city;
