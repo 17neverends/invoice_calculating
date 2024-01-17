@@ -84,7 +84,7 @@ function openModal(inputId, title) {
   citiesList = citiesList || document.getElementById('citiesList');
   searchInput = searchInput || document.getElementById('searchInput');
   modalTitle = modalTitle || document.getElementById('modal_title');
-  // tg.expand();
+  tg.expand();
   filteredCities = [];
 
   if (modal && overlay && inputElement) {
