@@ -25,13 +25,13 @@ document.addEventListener('DOMContentLoaded', function () {
   ];
 
 
-  const input_value = target_input.value.toLowerCase();
-  const filtered_cities = filter_all_items(cities, input_value, 0);
-  const filtered_regions = filtered_cities.length === 0 ? filter_all_items(cities, input_value, 1) : [];
-  const filtered_countries = (filtered_cities.length === 0 && filtered_regions.length === 0) ? filter_all_items(cities, input_value, 2) : [];
-  dropdown_list(destination_city_list, filtered_cities, filtered_regions, filtered_countries, input_value, target_input, departure_city_list);
+  
   departureInput.addEventListener('input', function () {
-
+    const input_value = departureInput.value.toLowerCase();
+    const filtered_cities = filter_all_items(cities, input_value, 0);
+    const filtered_regions = filtered_cities.length === 0 ? filter_all_items(cities, input_value, 1) : [];
+    const filtered_countries = (filtered_cities.length === 0 && filtered_regions.length === 0) ? filter_all_items(cities, input_value, 2) : [];
+    dropdown_list(departure_city_list, filtered_cities, filtered_regions, filtered_countries, input_value, departureInput, destination_city_list);
 
     if (departureInput.value.trim() !== '') {
       departure_from_list = false;
@@ -39,7 +39,11 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   target_input.addEventListener('input', function () {
-
+    const input_value = target_input.value.toLowerCase();
+    const filtered_cities = filter_all_items(cities, input_value, 0);
+    const filtered_regions = filtered_cities.length === 0 ? filter_all_items(cities, input_value, 1) : [];
+    const filtered_countries = (filtered_cities.length === 0 && filtered_regions.length === 0) ? filter_all_items(cities, input_value, 2) : [];
+    dropdown_list(destination_city_list, filtered_cities, filtered_regions, filtered_countries, input_value, target_input, departure_city_list);
 
     if (target_input.value.trim() !== '') {
       destination_from_list = false;
