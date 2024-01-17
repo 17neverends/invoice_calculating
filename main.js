@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
   ];
 
 
-  
+  //321 
   departureInput.addEventListener('input', function () {
     const input_value = departureInput.value.toLowerCase();
     const filtered_cities = filter_all_items(cities, input_value, 0);
