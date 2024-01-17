@@ -4,8 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const departure_city_list = document.getElementById('departure_city-list');
   const destination_city_list = document.getElementById('destination_city-list');
 
-
-  
   const cities = [
     'Москва, Центральный федеральный округ, Россия',
     'Санкт-Петербург, Северо-Западный федеральный округ, Россия',
@@ -42,8 +40,11 @@ document.addEventListener('DOMContentLoaded', function () {
     if (event.target !== departureInput && event.target !== target_input) {
       departure_city_list.style.display = 'none';
       destination_city_list.style.display = 'none';
+  
+
     }
   });
+  
 
   function dropdown_list(list, filtered_cities, filtered_regions, filtered_countries, input_value, inputElement, otherList) {
     if (input_value === '') {
@@ -58,23 +59,17 @@ document.addEventListener('DOMContentLoaded', function () {
       display_all_items(list, filtered_countries.slice(0, 5), input_value, inputElement);
       list.style.display = 'block';
     } else {
-      const firstItem = list.querySelector('li');
-      if (firstItem) {
-        inputElement.value = firstItem.textContent.trim();
-        list.style.display = 'none';
-      } else {
-        list.style.display = 'none';
-      }
+      list.style.display = 'none';
     }
   }
 
-  function display_all_items(list, display_items, input_value, inputElement) {
+  function display_all_items(list, dislpay_items, input_value, inputElement) {
     list.innerHTML = '';
-    display_items.forEach(item => {
+    dislpay_items.forEach(item => {
       const li = document.createElement('li');
-      const matchText = item.toLowerCase().match(input_value) || [];
-      const highlightedText = item.replace(new RegExp(matchText.join('|'), 'gi'), match => `<span class="highlight">${match}</span>`);
-      li.innerHTML = highlightedText;
+      const matcher = item.toLowerCase().match(input_value) || [];
+      const highlight_text = item.replace(new RegExp(matcher.join('|'), 'gi'), match => `<span class="highlight">${match}</span>`);
+      li.innerHTML = highlight_text;
       li.addEventListener('click', function () {
         inputElement.value = item;
         list.style.display = 'none';
@@ -87,7 +82,6 @@ document.addEventListener('DOMContentLoaded', function () {
     return items.filter(item => item.toLowerCase().split(', ')[priorityIndex].includes(input_value));
   }
 });
-
 
 
 //
