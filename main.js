@@ -1,161 +1,92 @@
-const cities = [
-  {
-      country: 'Россия',
-      region: 'Центральный федеральный округ',
-      city: 'Москва'
-  },
-  {
-      country: 'Россия',
-      region: 'Северо-Западный федеральный округ',
-      city: 'Санкт-Петербург'
-  },
-  {
-      country: 'Россия',
-      region: 'Приволжский федеральный округ',
-      city: 'Казань'
-  },
-  {
-      country: 'Россия',
-      region: 'Сибирский федеральный округ',
-      city: 'Новосибирск'
-  },
-  {
-      country: 'Россия',
-      region: 'Южный федеральный округ',
-      city: 'Таганрог'
-  },
-  {
-      country: 'Россия',
-      region: 'Южный федеральный округ',
-      city: 'Шахты'
-  },
-  {
-      country: 'Россия',
-      region: 'Южный федеральный округ',
-      city: 'Новошахтинск'
-  },
-  {
-      country: 'Россия',
-      region: 'Южный федеральный округ',
-      city: 'Краснодар'
-  },
-  {
-      country: 'Россия',
-      region: 'Южный федеральный округ',
-      city: 'Батайск'
-  },
-  {
-      country: 'Россия',
-      region: 'Южный федеральный округ',
-      city: 'Азов'
-  },
-  {
-      country: 'Россия',
-      region: 'Южный федеральный округ',
-      city: 'Новочеркасск'
-  },
-  {
-      country: 'Россия',
-      region: 'Южный федеральный округ',
-      city: 'Аксай'
-  },
-  {
-      country: 'Россия',
-      region: 'Южный федеральный округ',
-      city: 'Ростов-на-Дону'
-  }
-];
-
-let modal = document.getElementById('modal');
-let overlay = document.getElementById('overlay');
-let body = document.body;
-let filteredCities = [];
-let citiesList;
-let searchInput;
-let modalTitle;
+document.addEventListener('DOMContentLoaded', function () {
+  const departureInput = document.getElementById('departure_city');
+  const target_input = document.getElementById('destination_city');
+  const departure_city_list = document.getElementById('departure_city-list');
+  const destination_city_list = document.getElementById('destination_city-list');
 
 
-function openModal(inputId, title) {
-  let tg = window.Telegram.WebApp;
+  
+  const cities = [
+    'Москва, Центральный федеральный округ, Россия',
+    'Санкт-Петербург, Северо-Западный федеральный округ, Россия',
+    'Казань, Приволжский федеральный округ, Россия',
+    'Новосибирск, Сибирский федеральный округ, Россия',
+    'Таганрог, Южный федеральный округ, Россия',
+    'Шахты, Южный федеральный округ, Россия',
+    'Новошахтинск, Южный федеральный округ, Россия',
+    'Краснодар, Южный федеральный округ, Россия',
+    'Батайск, Южный федеральный округ, Россия',
+    'Азов, Южный федеральный округ, Россия',
+    'Новочеркасск, Южный федеральный округ, Россия',
+    'Аксай, Южный федеральный округ, Россия',
+    'Ростов-на-Дону, Южный федеральный округ, Россия'
+  ];
 
-  const inputElement = document.getElementById(inputId);
-  const modal = document.getElementById('modal');
-  const overlay = document.getElementById('overlay');
-  const body = document.body;
-  citiesList = citiesList || document.getElementById('citiesList');
-  searchInput = searchInput || document.getElementById('searchInput');
-  modalTitle = modalTitle || document.getElementById('modal_title');
-  tg.expand();
-  filteredCities = [];
-
-  if (modal && overlay && inputElement) {
-    modal.style.display = 'block';
-    overlay.style.display = 'block';
-    body.classList.add('modal-open');
-
-    searchInput.value = '';
-
-    if (filteredCities.length === 0) {
-      filterList();
-    } else {
-      updateList();
-    }
-
-    modalTitle.textContent = title;
-    modalTitle.setAttribute('data-input-id', inputId);
-
-    const selectedCity = inputElement.value;
-    if (selectedCity) {
-      searchInput.value = selectedCity;
-    }
-  }
-}
-
-function closeModal() {
-  const modal = document.getElementById('modal');
-  const overlay = document.getElementById('overlay');
-  const body = document.body;
-
-  if (modal && overlay) {
-    modal.style.display = 'none';
-    overlay.style.display = 'none';
-    body.classList.remove('modal-open');
-  }
-}
-
-function filterList() {
-  const filter = searchInput.value.toLowerCase();
-  filteredCities = cities.filter(city =>
-    city.country.toLowerCase().includes(filter) ||
-    city.region.toLowerCase().includes(filter) ||
-    city.city.toLowerCase().includes(filter)
-  );
-  updateList();
-}
-
-function updateList() {
-  const fragment = document.createDocumentFragment();
-  filteredCities.forEach(city => {
-    const li = document.createElement('li');
-    li.classList.add('cityItem');
-    li.textContent = `${city.country}, ${city.region}, ${city.city}`;
-    li.addEventListener('click', () => selectedCity(`${city.country}, ${city.region}, ${city.city}`, modalTitle.getAttribute('data-input-id')));
-    fragment.appendChild(li);
+  departureInput.addEventListener('input', function () {
+    const input_value = departureInput.value.toLowerCase();
+    const filtered_cities = filter_all_items(cities, input_value, 0);
+    const filtered_regions = filtered_cities.length === 0 ? filter_all_items(cities, input_value, 1) : [];
+    const filtered_countries = (filtered_cities.length === 0 && filtered_regions.length === 0) ? filter_all_items(cities, input_value, 2) : [];
+    dropdown_list(departure_city_list, filtered_cities, filtered_regions, filtered_countries, input_value, departureInput, destination_city_list);
   });
 
-  citiesList.innerHTML = '';
-  citiesList.appendChild(fragment);
-}
+  target_input.addEventListener('input', function () {
+    const input_value = target_input.value.toLowerCase();
+    const filtered_cities = filter_all_items(cities, input_value, 0);
+    const filtered_regions = filtered_cities.length === 0 ? filter_all_items(cities, input_value, 1) : [];
+    const filtered_countries = (filtered_cities.length === 0 && filtered_regions.length === 0) ? filter_all_items(cities, input_value, 2) : [];
+    dropdown_list(destination_city_list, filtered_cities, filtered_regions, filtered_countries, input_value, target_input, departure_city_list);
+  });
 
-function selectedCity(city, inputId) {
-  console.log(`${inputId}`)
-  const inputElement = document.getElementById(inputId);
-  if (inputElement) {
-    inputElement.value = city;
+  document.addEventListener('click', function (event) {
+    if (event.target !== departureInput && event.target !== target_input) {
+      departure_city_list.style.display = 'none';
+      destination_city_list.style.display = 'none';
+    }
+  });
+
+  function dropdown_list(list, filtered_cities, filtered_regions, filtered_countries, input_value, inputElement, otherList) {
+    if (input_value === '') {
+      list.style.display = 'none';
+    } else if (filtered_cities.length > 0) {
+      display_all_items(list, filtered_cities.slice(0, 5), input_value, inputElement);
+      list.style.display = 'block';
+    } else if (filtered_regions.length > 0) {
+      display_all_items(list, filtered_regions.slice(0, 5), input_value, inputElement);
+      list.style.display = 'block';
+    } else if (filtered_countries.length > 0) {
+      display_all_items(list, filtered_countries.slice(0, 5), input_value, inputElement);
+      list.style.display = 'block';
+    } else {
+      const firstItem = list.querySelector('li');
+      if (firstItem) {
+        inputElement.value = firstItem.textContent.trim();
+        list.style.display = 'none';
+      } else {
+        list.style.display = 'none';
+      }
+    }
   }
-  closeModal();
-}
 
+  function display_all_items(list, display_items, input_value, inputElement) {
+    list.innerHTML = '';
+    display_items.forEach(item => {
+      const li = document.createElement('li');
+      const matchText = item.toLowerCase().match(input_value) || [];
+      const highlightedText = item.replace(new RegExp(matchText.join('|'), 'gi'), match => `<span class="highlight">${match}</span>`);
+      li.innerHTML = highlightedText;
+      li.addEventListener('click', function () {
+        inputElement.value = item;
+        list.style.display = 'none';
+      });
+      list.appendChild(li);
+    });
+  }
+
+  function filter_all_items(items, input_value, priorityIndex) {
+    return items.filter(item => item.toLowerCase().split(', ')[priorityIndex].includes(input_value));
+  }
+});
 
 
 
@@ -164,6 +95,8 @@ function selectedCity(city, inputId) {
 // Блок валидации
 
 //
+
+
 const valid = ["box_length", "box_width", "box_height", "box_weight", "destination_city", "departure_city"];
 const numerical = ["box_length", "box_width", "box_height", "box_weight"];
 const label_status = document.getElementById('status'); 
