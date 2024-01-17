@@ -73,6 +73,8 @@ let filteredCities = [];
 let citiesList;
 let searchInput;
 let modalTitle;
+let tg = window.Telegram.WebApp;
+
 
 function openModal(inputId, title) {
   const inputElement = document.getElementById(inputId);
@@ -82,7 +84,7 @@ function openModal(inputId, title) {
   citiesList = citiesList || document.getElementById('citiesList');
   searchInput = searchInput || document.getElementById('searchInput');
   modalTitle = modalTitle || document.getElementById('modal_title');
-
+  tg.expand();
   filteredCities = [];
 
   if (modal && overlay && inputElement) {
