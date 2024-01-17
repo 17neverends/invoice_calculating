@@ -1,6 +1,10 @@
+let departure_from_list = false;
+let destination_from_list = false;
+const departureInput = document.getElementById('departure_city');
+const target_input = document.getElementById('destination_city');
+
 document.addEventListener('DOMContentLoaded', function () {
-  const departureInput = document.getElementById('departure_city');
-  const target_input = document.getElementById('destination_city');
+
   const departure_city_list = document.getElementById('departure_city-list');
   const destination_city_list = document.getElementById('destination_city-list');
 
@@ -20,20 +24,26 @@ document.addEventListener('DOMContentLoaded', function () {
     'Ростов-на-Дону, Южный федеральный округ, Россия'
   ];
 
+
+  const input_value = target_input.value.toLowerCase();
+  const filtered_cities = filter_all_items(cities, input_value, 0);
+  const filtered_regions = filtered_cities.length === 0 ? filter_all_items(cities, input_value, 1) : [];
+  const filtered_countries = (filtered_cities.length === 0 && filtered_regions.length === 0) ? filter_all_items(cities, input_value, 2) : [];
+  dropdown_list(destination_city_list, filtered_cities, filtered_regions, filtered_countries, input_value, target_input, departure_city_list);
   departureInput.addEventListener('input', function () {
-    const input_value = departureInput.value.toLowerCase();
-    const filtered_cities = filter_all_items(cities, input_value, 0);
-    const filtered_regions = filtered_cities.length === 0 ? filter_all_items(cities, input_value, 1) : [];
-    const filtered_countries = (filtered_cities.length === 0 && filtered_regions.length === 0) ? filter_all_items(cities, input_value, 2) : [];
-    dropdown_list(departure_city_list, filtered_cities, filtered_regions, filtered_countries, input_value, departureInput, destination_city_list);
+
+
+    if (departureInput.value.trim() !== '') {
+      departure_from_list = false;
+    }
   });
 
   target_input.addEventListener('input', function () {
-    const input_value = target_input.value.toLowerCase();
-    const filtered_cities = filter_all_items(cities, input_value, 0);
-    const filtered_regions = filtered_cities.length === 0 ? filter_all_items(cities, input_value, 1) : [];
-    const filtered_countries = (filtered_cities.length === 0 && filtered_regions.length === 0) ? filter_all_items(cities, input_value, 2) : [];
-    dropdown_list(destination_city_list, filtered_cities, filtered_regions, filtered_countries, input_value, target_input, departure_city_list);
+
+
+    if (target_input.value.trim() !== '') {
+      destination_from_list = false;
+    }
   });
 
   document.addEventListener('click', function (event) {
@@ -63,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  function display_all_items(list, dislpay_items, input_value, inputElement) {
+  function display_all_items(list, dislpay_items, input_value, inputElement, otherList) {
     list.innerHTML = '';
     dislpay_items.forEach(item => {
       const li = document.createElement('li');
@@ -73,10 +83,18 @@ document.addEventListener('DOMContentLoaded', function () {
       li.addEventListener('click', function () {
         inputElement.value = item;
         list.style.display = 'none';
+        if (list === departure_city_list) {
+          departure_from_list = true;
+          // console.log('Выбран город отправления:', item);
+        } else if (list === destination_city_list) {
+          destination_from_list = true;
+          // console.log('Выбран город назначения:', item);
+        }
       });
       list.appendChild(li);
     });
   }
+  
 
   function filter_all_items(items, input_value, priorityIndex) {
     return items.filter(item => item.toLowerCase().split(', ')[priorityIndex].includes(input_value));
@@ -94,6 +112,8 @@ document.addEventListener('DOMContentLoaded', function () {
 const valid = ["box_length", "box_width", "box_height", "box_weight", "destination_city", "departure_city"];
 const numerical = ["box_length", "box_width", "box_height", "box_weight"];
 const label_status = document.getElementById('status'); 
+
+
 
 function check_inputs() {
   remove_error_styles();
@@ -130,9 +150,18 @@ function validate_inputs_value() {
 
   if (any_inputs_empty) {
     return true;
+  } else if (!destination_from_list) {
+    label_status.innerText = "Выберите город получателя из меню";
+    target_input.value = '';
+    apply_error_styles_for_destination();
+  }  else if (!departure_from_list) {
+      label_status.innerText = "Выберите город отправителя из меню";
+      departureInput.value = '';
+      apply_error_styles_for_departure();
+    
   } else if (non_numerical_input) {
     label_status.innerText = "Заполните корректные числовые значения";
-    apply_error_style();
+    apply_error_styles_for_nymerical();
   } else {
     label_status.innerText = "Успешно";
     //Действия при успешном вводе
@@ -141,7 +170,7 @@ function validate_inputs_value() {
   return false;
 }
 
-function apply_error_style() {
+function apply_error_styles_for_nymerical() {
   for (const id of numerical) {
     const element = document.getElementById(id);
     const isValid = element.value.trim() !== '' && /^[0-9]+([.,][0-9]+)?$/.test(element.value.trim());
@@ -150,5 +179,24 @@ function apply_error_style() {
     } else {
       element.classList.remove('error');
     }
+  }
+}
+
+function apply_error_styles_for_departure() {
+  const element = document.getElementById("departure_city");
+    if (!departure_from_list) {
+      element.classList.add('error');
+    } else {
+      element.classList.remove('error');
+  }
+}
+
+
+function apply_error_styles_for_destination() {
+  const element = document.getElementById("destination_city");
+    if (!destination_from_list) {
+      element.classList.add('error');
+    } else {
+      element.classList.remove('error');
   }
 }
