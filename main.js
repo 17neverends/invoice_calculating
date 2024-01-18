@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
   ];
 
 
-  //321 
+  
   departureInput.addEventListener('input', function () {
     const input_value = departureInput.value.toLowerCase();
     const filtered_cities = filter_all_items(cities, input_value, 0);
@@ -60,24 +60,28 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   
 
-  function dropdown_list(list, filtered_cities, filtered_regions, filtered_countries, input_value, inputElement, otherList) {
-    if (input_value === '') {
-      list.style.display = 'none';
-    } else if (filtered_cities.length > 0) {
-      display_all_items(list, filtered_cities.slice(0, 5), input_value, inputElement);
-      list.style.display = 'block';
-    } else if (filtered_regions.length > 0) {
-      display_all_items(list, filtered_regions.slice(0, 5), input_value, inputElement);
-      list.style.display = 'block';
-    } else if (filtered_countries.length > 0) {
-      display_all_items(list, filtered_countries.slice(0, 5), input_value, inputElement);
-      list.style.display = 'block';
-    } else {
-      list.style.display = 'none';
+  function dropdown_list(list, filtered_cities, filtered_regions, filtered_countries, input_value, inputElement) {
+    let itemsToDisplay = [];
+  
+    if (input_value !== '') {
+      if (filtered_cities.length > 0) {
+        itemsToDisplay = filtered_cities.slice(0, 5);
+      } else if (filtered_regions.length > 0) {
+        itemsToDisplay = filtered_regions.slice(0, 5);
+      } else if (filtered_countries.length > 0) {
+        itemsToDisplay = filtered_countries.slice(0, 5);
+      }
+    }
+  
+    list.style.display = itemsToDisplay.length > 0 ? 'block' : 'none';
+  
+    if (itemsToDisplay.length > 0) {
+      display_all_items(list, itemsToDisplay, input_value, inputElement);
     }
   }
+  
 
-  function display_all_items(list, dislpay_items, input_value, inputElement, otherList) {
+  function display_all_items(list, dislpay_items, input_value, inputElement) {
     list.innerHTML = '';
     dislpay_items.forEach(item => {
       const li = document.createElement('li');
@@ -106,6 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+
 //
 
 // Блок валидации
@@ -118,7 +123,6 @@ const numerical = ["box_length", "box_width", "box_height", "box_weight"];
 const label_status = document.getElementById('status'); 
 
 
-
 function check_inputs() {
   remove_error_styles();
   if (validate_inputs_value()) {
@@ -126,12 +130,14 @@ function check_inputs() {
   } 
 }
 
+
 function remove_error_styles() {
   for (const id of valid) {
     const element = document.getElementById(id);
     element.classList.remove('error');
   }
 }
+
 
 function validate_inputs_value() {
   let any_inputs_empty = false;
