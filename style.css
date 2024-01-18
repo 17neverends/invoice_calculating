@@ -10,16 +10,18 @@ body {
     min-width: 100%;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    overflow-y: hidden; 
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    position: relative
 }
 
 h1 {
     font-size: 20px;
 }
-
+ 
 body::-webkit-scrollbar {
     display: none;
-  }
+}
 
 form {
     background-color: #fff;
@@ -144,44 +146,35 @@ input:hover {
     height: 80%;
 }
 
-.inputform {
-    position: relative;
-}
 
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  ul {
+ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    position: absolute;
+    position: relative;
     z-index: 1;
     background-color: #f9f9f9;
     box-sizing: border-box;
     max-height: 300px;
     overflow-y: auto;
-    width: 27%;
+    width: 100%;
 
-  }
-  
-  li {
+}
+
+
+li {
     padding: 8px;
     cursor: pointer;
     white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
     word-wrap: break-word;
-  }
-  
-  li:hover {
+}
+
+li:hover {
     background-color: #ddd;
-  }
-  
-  .highlight {
+}
+
+.highlight {
     font-weight: bold;
-  }
-  
+}
