@@ -6,19 +6,38 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh; 
     min-width: 100%;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    /* overflow-y: scroll;  */
 }
 
 h1 {
     font-size: 20px;
 }
- 
-body::-webkit-scrollbar {
+
+*::-webkit-scrollbar {
     display: none;
 }
+
+*::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+  }
+   
+  *::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+   
+  *::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: none;
+  }
+   
+  *::-webkit-scrollbar-thumb:vertical {
+    max-height: 0px;
+    max-width: 0px;
+  }
 
 form {
     background-color: #fff;
@@ -26,12 +45,9 @@ form {
     box-shadow: 0 0 10px rgba(0, 0, 0, 1);
     max-width: 400px;
     width: 100%;
-    /* margin: auto; */
-    /* height: 1000px; */
-    min-height: 120svh;
-    top: 0px;
-    position: fixed;
-
+    margin: auto;
+    height: 1000px;
+    min-height: 100px;
 }
 
 label {
@@ -104,6 +120,7 @@ input:hover {
     cursor: pointer;
     height: 7vh;
     width: 100%;
+    margin-top: 40px;
     border-radius: 10px;
     font-size: 17px;
     text-align: center;
@@ -144,35 +161,44 @@ input:hover {
     height: 80%;
 }
 
+.inputform {
+    position: relative;
+}
 
-ul {
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    position: relative;
+    position: absolute;
     z-index: 1;
     background-color: #f9f9f9;
     box-sizing: border-box;
     max-height: 300px;
     overflow-y: auto;
-    width: 100%;
+    width: 27%;
 
-}
-
-
-li {
+  }
+  
+  li {
     padding: 8px;
     cursor: pointer;
     white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
     word-wrap: break-word;
-}
-
-li:hover {
+  }
+  
+  li:hover {
     background-color: #ddd;
-}
-
-.highlight {
+  }
+  
+  .highlight {
     font-weight: bold;
-}
+  }
+  
