@@ -154,33 +154,34 @@ input:hover {
     display: inline-block;
   }
   
-    
-ul {
-list-style: none;
-padding: 0;
-margin: 0;
-position: relative;
-z-index: 1;
-background-color: #f9f9f9;
-box-sizing: border-box;
-max-height: 300px;
-overflow-y: auto;
-width: 100%;
-}
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    z-index: 1;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    max-height: 300px;
+    overflow-y: auto;
+    width: 27%;
 
-li {
-padding: 8px;
-cursor: pointer;
-white-space: normal;
-overflow: hidden;
-text-overflow: ellipsis;
-word-wrap: break-word;
-}
-
-li:hover {
-background-color: #ddd;
-}
-
-.highlight {
-font-weight: bold;
-}
+  }
+  
+  li {
+    padding: 8px;
+    cursor: pointer;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+  }
+  
+  li:hover {
+    background-color: #ddd;
+  }
+  
+  .highlight {
+    font-weight: bold;
+  }
+  
