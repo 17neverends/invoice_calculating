@@ -10,9 +10,6 @@ body {
     min-width: 100%;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    overflow-y: auto; 
-    overflow-x: hidden; 
-    position: relative;
 }
 
 h1 {
@@ -31,7 +28,7 @@ form {
     width: 100%;
     /* margin: auto; */
     /* height: 1000px; */
-    min-height: 90vh;
+    min-height: 120svh;
     top: 0px;
     position: fixed;
 
