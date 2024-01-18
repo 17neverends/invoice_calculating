@@ -16,28 +16,25 @@ h1 {
     font-size: 20px;
 }
 
-*::-webkit-scrollbar {
-    display: none;
-}
-
-*::-webkit-scrollbar {
-    width: 0px;
-    height: 0px;
+/* Скрыть полосу прокрутки вебкит-браузеров (Chrome, Safari, etc.) */
+body::-webkit-scrollbar {
+    width: 0.5em; /* Ширина полосы прокрутки */
   }
-   
-  *::-webkit-scrollbar-track {
-    background-color: transparent;
+  
+  body::-webkit-scrollbar-track {
+    background-color: transparent; /* Цвет фона полосы прокрутки */
   }
-   
-  *::-webkit-scrollbar-thumb {
-    background-color: transparent;
-    border-radius: none;
+  
+  body::-webkit-scrollbar-thumb {
+    background-color: transparent; /* Цвет полосы прокрутки */
   }
-   
-  *::-webkit-scrollbar-thumb:vertical {
-    max-height: 0px;
-    max-width: 0px;
+  
+  /* Скрыть полосу прокрутки в Firefox */
+  body {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
   }
+  
 
 form {
     background-color: #fff;
@@ -175,13 +172,12 @@ input:hover {
     list-style: none;
     padding: 0;
     margin: 0;
-    position: absolute;
+    position: relative;
     z-index: 1;
     background-color: #f9f9f9;
     box-sizing: border-box;
     max-height: 300px;
-    overflow-y: auto;
-    width: 27%;
+    width: 100%;
 
   }
   
